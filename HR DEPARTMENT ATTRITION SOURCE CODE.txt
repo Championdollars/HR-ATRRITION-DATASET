@@ -1,0 +1,51 @@
+  				                       Question 1
+-- What is the distribution of employee education levels, and how does it vary across different job roles?
+
+SELECT
+  JobRole,
+  Education,
+  COUNT(*) AS Employee_Count
+FROM hr
+GROUP BY JobRole, Education
+ORDER BY JobRole, Education;
+					
+
+							 QUESTION 2
+-- Analyze the relationship between work-life balance and overtime. What percentage of employees with poor work-life balance
+
+SELECT 
+    ROUND(100.0 * SUM(CASE
+                WHEN WorkLifeBalance = 1 AND OverTime = 'Yes' THEN 1
+                ELSE 0
+            END) / SUM(CASE
+                WHEN WorkLifeBalance = 1 THEN 1
+                ELSE 0
+            END),
+            2) AS Pct_Poor_WLB_Overtime
+FROM
+    hr;
+					   QUESTION 3
+
+-- Find the top 5 job roles with the highest average monthly income, and the average monthly income for each.
+
+
+SELECT
+  JobRole,
+  AVG(MonthlyIncome) AS Avg_Monthly_Income
+FROM hr
+GROUP BY JobRole
+ORDER BY Avg_Monthly_Income DESC
+LIMIT 5;
+
+
+					-- QUESTION 4
+
+-- Identify the departments with the highest average number of years since the last promotion.
+
+ SELECT
+  Department,
+  AVG(YearsSinceLastPromotion) AS Avg_Yrs_Since_Last_Promotion
+FROM hr
+GROUP BY Department
+ORDER BY Avg_Yrs_Since_Last_Promotion DESC;
+
